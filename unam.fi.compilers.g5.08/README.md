@@ -13,3 +13,12 @@ Este es un **analizador léxico** que procesa fragmentos de código Python y cat
    ```sh
    git clone https://github.com/JosJim275/Compiladores.git
    cd repositorio
+
+
+## 📂 Estructura del Proyecto
+
+📁 unam.fi.compilers.g5.08 
+📄 Lexer_Analizer.py # Código principal del lexer
+📄 test_lexer.py # Pruebas unitarias 
+📄 casos_de_uso.md # Casos de uso detallados
+📄 README.md # Documentación general

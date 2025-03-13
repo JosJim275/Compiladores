@@ -1,34 +1,34 @@
 import unittest
-from Lexer_Analizer import lexer  #Import lexer function from the main code
+from Lexer_Analizer import lexer  # Importamos la función lexer del código principal
 
 class TestLexer(unittest.TestCase):
     """
-    Unit tests for verify the correct functionality of the Lexer
-    Each test evaluates if lexer classifies the tokens correctly in different categories,
-    such as keywords, identifiers and constants
+    Pruebas unitarias para verificar el correcto funcionamiento del Lexer.
+    Cada prueba evalúa si el lexer clasifica correctamente los tokens en diferentes categorías,
+    como palabras clave, identificadores y constantes.
     """
     
     def test_variables_y_bucle(self):
         """
-        Tests the variables detection and control structures
-        It evaluates the recognizing of keywords like 'while', identifiers like 'x',
-        and the right counting of tokens
+        Prueba la detección de variables y estructuras de control.
+        Se evalúa el reconocimiento de palabras clave como 'while', identificadores como 'x',
+        y la correcta contabilización de tokens.
         """
         
         code = """x = 2
         while x < 5:
             print(f"x vale {x}")
             x += 1
-        """  #Source code with variables, a loop and a print function
+        """  # Código fuente de prueba con variables, un bucle y una función de impresión
         
-        tokens, total_count = lexer(code)  #Analyze the code with lexer
+        tokens, total_count = lexer(code)  # Analizamos el código con el lexer
         
-        #Verifications
-        self.assertIn("while", tokens["KEYWORDS"])  #Verify that 'while' are in the keywords
-        self.assertIn("x", tokens["IDENTIFIERS"])  #Verify that 'x' are in the identifiers
-        self.assertIn("print", tokens["IDENTIFIERS"])  #'print' must be recognized as identifier
-        self.assertIn("2", tokens["CONSTANTS"])  #The number '2' must be constants
-        self.assertEqual(total_count, 16)  #There are 16 tokens expected
+        # Verificaciones
+        self.assertIn("while", tokens["KEYWORDS"])  # Verifica que 'while' esté en palabras clave
+        self.assertIn("x", tokens["IDENTIFIERS"])  # Verifica que 'x' esté en identificadores
+        self.assertIn("print", tokens["IDENTIFIERS"])  # 'print' debería ser reconocido como identificador
+        self.assertIn("2", tokens["CONSTANTS"])  # El número '2' debería estar en constantes
+        self.assertEqual(total_count, 16)  # Se espera un total de 16 tokens reconocidos
     
     def test_import_y_funcion(self):
         """
@@ -39,16 +39,16 @@ class TestLexer(unittest.TestCase):
         code = """import re
         def sumar(a, b):
             return a + b
-        """  #Source code, test with a import, function and return
+        """  # Código fuente de prueba con una importación, una función y un retorno
         
-        tokens, total_count = lexer(code)  #Analyze the code with lexer
+        tokens, total_count = lexer(code)  # Analizamos el código con el lexer
         
-        #Verifications
-        self.assertIn("import", tokens["KEYWORDS"])  # 'import' must be in keywords
-        self.assertIn("def", tokens["KEYWORDS"])  # 'def' must be in keywords
-        self.assertIn("sumar", tokens["IDENTIFIERS"])  # 'sumar' must be in identifiers
-        self.assertIn("return", tokens["KEYWORDS"])  # 'return' must be identified as a keyword
-        self.assertEqual(total_count, 13)  #13 tokens in total to be expected
+        # Verificaciones
+        self.assertIn("import", tokens["KEYWORDS"])  # 'import' debe estar en palabras clave
+        self.assertIn("def", tokens["KEYWORDS"])  # 'def' debe estar en palabras clave
+        self.assertIn("sumar", tokens["IDENTIFIERS"])  # 'sumar' debe ser un identificador
+        self.assertIn("return", tokens["KEYWORDS"])  # 'return' debe ser identificado como palabra clave
+        self.assertEqual(total_count, 13)  # Se espera un total de 13 tokens reconocidos
 
 
 if __name__ == '__main__':

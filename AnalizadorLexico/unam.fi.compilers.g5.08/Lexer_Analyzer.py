@@ -30,13 +30,14 @@ def lexer(code):
         value = match.group(kind)
         if kind != 'WHITESPACE':  
             total_tokens += 1
-            tokens[kind].append(value)
+            if value not in tokens[kind]:
+                tokens[kind].append(value)
     
     return tokens, total_tokens
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Uso: python lexer.py <archivo.py>")
+        print("Uso: python Lexer_Analyzer.py archivo.py")
         sys.exit(1)
     
     archivo = sys.argv[1]

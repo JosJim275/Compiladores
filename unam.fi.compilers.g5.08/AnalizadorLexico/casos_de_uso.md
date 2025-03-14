@@ -19,7 +19,6 @@ PUNCTUATION: :, ()
 
 Tokens en total: 16
 
-*aquí chequen pq está ocurriendo algo raro con f, y con 0.2, entonces le manejé como 2
 
 Caso 2:
 

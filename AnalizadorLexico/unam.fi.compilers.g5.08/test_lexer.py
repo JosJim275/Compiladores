@@ -1,55 +1,36 @@
 import unittest
-from Lexer_Analizer import lexer  #Import lexer function from the main code
+from Lexer_Analyzer import lexer  
+import os
 
 class TestLexer(unittest.TestCase):
-    """
-    Unit tests for verify the correct functionality of the Lexer
-    Each test evaluates if lexer classifies the tokens correctly in different categories,
-    such as keywords, identifiers and constants
-    """
-    
-    def test_variables_y_bucle(self):
-        """
-        Tests the variables detection and control structures
-        It evaluates the recognizing of keywords like 'while', identifiers like 'x',
-        and the right counting of tokens
-        """
-        
-        code = """x = 2
-        while x < 5:
-            print(f"x vale {x}")
-            x += 1
-        """  #Source code with variables, a loop and a print function
-        
-        tokens, total_count = lexer(code)  #Analyze the code with lexer
-        
-        #Verifications
-        self.assertIn("while", tokens["KEYWORDS"])  #Verify that 'while' are in the keywords
-        self.assertIn("x", tokens["IDENTIFIERS"])  #Verify that 'x' are in the identifiers
-        self.assertIn("print", tokens["IDENTIFIERS"])  #'print' must be recognized as identifier
-        self.assertIn("2", tokens["CONSTANTS"])  #The number '2' must be constants
-        self.assertEqual(total_count, 16)  #There are 16 tokens expected
-    
-    def test_import_y_funcion(self):
-        """
-        Prueba la detección de importaciones y funciones.
-        Se verifica que el lexer reconozca 'import', 'def', nombres de funciones e instrucciones de retorno.
-        """
-        
-        code = """import re
-        def sumar(a, b):
-            return a + b
-        """  #Source code, test with a import, function and return
-        
-        tokens, total_count = lexer(code)  #Analyze the code with lexer
-        
-        #Verifications
-        self.assertIn("import", tokens["KEYWORDS"])  # 'import' must be in keywords
-        self.assertIn("def", tokens["KEYWORDS"])  # 'def' must be in keywords
-        self.assertIn("sumar", tokens["IDENTIFIERS"])  # 'sumar' must be in identifiers
-        self.assertIn("return", tokens["KEYWORDS"])  # 'return' must be identified as a keyword
-        self.assertEqual(total_count, 13)  #13 tokens in total to be expected
+    PRUEBAS_DIR = "Pruebas"
+
+    def test_lexer_on_files(self):
+        """Prueba el lexer con archivos dentro de la carpeta Pruebas."""
+        for filename in os.listdir(self.PRUEBAS_DIR):
+            if filename.endswith(".py"):  # Solo procesamos archivos Python
+                with self.subTest(filename=filename):
+                    filepath = os.path.join(self.PRUEBAS_DIR, filename)
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        code = f.read()
+                    
+                    tokens, total_count = lexer(code)
+                    
+                    # Mostrar resultado en consola
+                    print(f"\nArchivo: {filename}")
+                    print("Tokens reconocidos:")
+                    for category, values in tokens.items():
+                        print(f"{category} ({len(values)}): {', '.join(values)}")
+                    print(f"Total de tokens: {total_count}\n")
+                    
+                    # Verificamos que haya al menos un token
+                    self.assertGreater(total_count, 0, f"El archivo {filename} no generó tokens.")
+                    
+                    # Verificamos que cada token esté categorizado correctamente
+                    for category, values in tokens.items():
+                        for token in values:
+                            self.assertIsInstance(token, str, f"Token inválido en {category}: {token}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)  # Habilita CORS para permitir solicitudes desde el frontend
 
 TOKEN_SPECIFICATION = [
-    ('KEYWORD', r'\b(def|in|import|if|while|return)\b'),
+    ('KEYWORD', r'\b(False|None|True|and|as|assert|async|await|break|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|raise|return|try|while|with|yield|case)\b'),
     ('LITERAL', r'f?"[^"]*"'),
     ('CONSTANT', r'\b\d+\.\d+|\b\d+\b'),
     ('IDENTIFIER', r'\b[a-zA-Z_][a-zA-Z_0-9]*\b'),
@@ -14,7 +14,6 @@ TOKEN_SPECIFICATION = [
     ('PUNCTUATION', r'[\(\):\[\]\{\}]'),
     ('WHITESPACE', r'\s+'),
 ]
-
 token_regex = '|'.join(f'(?P<{name}>{regex})' for name, regex in TOKEN_SPECIFICATION)
 
 def lexer(code):

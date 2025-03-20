@@ -3,7 +3,8 @@ from Lexer_Analyzer import lexer
 import os
 
 class TestLexer(unittest.TestCase):
-    PRUEBAS_DIR = "Pruebas"
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Ruta del script actual
+    PRUEBAS_DIR = os.path.join(BASE_DIR, "..", "Pruebas")  # Ajusta la ruta a la carpeta de pruebas
 
     def test_lexer_on_files(self):
         """Prueba el lexer con archivos dentro de la carpeta Pruebas."""

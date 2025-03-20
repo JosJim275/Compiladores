@@ -13,17 +13,21 @@ TOKEN_SPECIFICATION = [
     ('OPERATOR', r'==|!=|<=|>=|<|>|=|\+|\-|\*|/'),
     ('PUNCTUATION', r'[\(\):\[\]\{\}]'),
     ('WHITESPACE', r'\s+'),
+    ('COMMENT', r'#.*'),
 ]
 token_regex = '|'.join(f'(?P<{name}>{regex})' for name, regex in TOKEN_SPECIFICATION)
 
 def lexer(code):
-    tokens = {category: [] for category, _ in TOKEN_SPECIFICATION if category != "WHITESPACE"}
+    # Excluimos WHITESPACE y COMMENT de la lista de tokens
+    tokens = {category: [] for category, _ in TOKEN_SPECIFICATION if category not in ["WHITESPACE", "COMMENT"]}
     total_tokens = 0
 
     for match in re.finditer(token_regex, code):
         kind = match.lastgroup
         value = match.group(kind)
-        if kind != 'WHITESPACE':  
+        
+        # Ignoramos WHITESPACE y COMMENT
+        if kind not in ["WHITESPACE", "COMMENT"]:
             total_tokens += 1
             if value not in tokens[kind]:
                 tokens[kind].append(value)

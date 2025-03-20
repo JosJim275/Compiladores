@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Léxico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="dark-mode flex flex-col min-h-screen p-4">
+    <div id="particles-js"></div>   
+
+    <!-- Contenedor principal -->
+    <div class="flex-grow w-full max-w-3xl mx-auto p-6 bg-gray-900 text-white rounded-lg shadow-lg relative space-y-6">
+        
+        <!-- Título más grande -->
+        <h1 class="text-4xl font-extrabold text-center">Analizador Léxico</h1>
+
+        <!-- Área de texto -->
+        <textarea id="codeInput" 
+            class="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white h-32 resize-none"
+            placeholder="Escribe o pega tu código aquí..."></textarea>
+
+        <!-- Botones -->
+        <div class="flex flex-wrap gap-3 justify-center">
+            <button onclick="analyzeCode()" 
+                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded transition w-40">
+                Analizar Código
+            </button>
+
+            <input type="file" id="fileInput" class="hidden" accept=".txt,.py,.js,.cpp"/>
+            <button onclick="document.getElementById('fileInput').click()" 
+                class="px-4 py-2 bg-green-500 hover:bg-green-600 rounded transition w-40">
+                Cargar Archivo
+            </button>
+
+            <button onclick="loadExample()" 
+                class="px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded transition w-40">
+                Código de Ejemplo
+            </button>
+        </div>
+
+        
+
+        <!-- Cargando -->
+        <div id="loading" class="hidden flex justify-center">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="output" class="mt-6 p-4 bg-gray-800 rounded shadow-inner transition min-h-[100px]">
+            <p class="text-gray-400 text-center">Los tokens aparecerán aquí...</p>
+        </div>
+    </div>
+
+<!-- footer --><footer class="w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white mt-8 py-6">
+    <h2 class="text-xl font-bold text-center text-blue-400 flex items-center justify-center gap-2">
+        <span>Contáctanos</span>
+    </h2>
+    <div class="grid grid-cols-5 gap-6 mt-6 text-center">
+        <div class="team-member">
+            <p class="font-semibold hover:brightness-200 transition">Josue Elizalde</p>
+            <a href="https://github.com/JosJim275" target="_blank" class="inline-block mt-2 github-link">
+                <img src="./images/github.png" alt=" GitHub" class="w-10 h-10 mx-auto">
+            </a>
+        </div>
+        <div class="team-member">
+            <p class="font-semibold hover:brightness-200 transition">Santiago Medina</p>
+            <a href="https://github.com/sntg-mdn" target="_blank" class="inline-block mt-2 github-link">
+                <img src="./images/github.png" alt=" GitHub" class="w-10 h-10 mx-auto">
+            </a>
+        </div>
+        <div class="team-member">
+            <p class="font-semibold hover:brightness-200 transition">Héctor Salazar</p>
+            <a href="https://github.com/HectorSalazar027" target="_blank" class="inline-block mt-2 github-link">
+                <img src="./images/github.png" alt="GitHub" class="w-11 h-11 mx-auto">
+            </a>
+        </div>
+        <div class="team-member">
+            <p class="font-semibold hover:brightness-200 transition">David Tavera</p>
+            <a href="https://github.com/DavidT328" target="_blank" class="inline-block mt-2 github-link">
+                <img src="./images/github.png" alt=" GitHub" class="w-10 h-10 mx-auto">
+            </a>
+        </div>
+        <div class="team-member">
+            <p class="font-semibold hover:brightness-200 transition">Jesus Tenorio</p>
+            <a href="https://github.com/JysusAle" target="_blank" class="inline-block mt-2 github-link">
+                <img src="./images/github.png" alt=" GitHub" class="w-10 h-10 mx-auto">
+            </a>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .team-member {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    /* Animación de entrada */
+    .team-member:nth-child(1) { animation: fadeInUp 0.5s ease forwards 0.12s; }
+    .team-member:nth-child(2) { animation: fadeInUp 0.5s ease forwards 0.22s; }
+    .team-member:nth-child(3) { animation: fadeInUp 0.5s ease forwards 0.32s; }
+    .team-member:nth-child(4) { animation: fadeInUp 0.5s ease forwards 0.42s; }
+    .team-member:nth-child(5) { animation: fadeInUp 0.5s ease forwards 0.52s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Efecto hover en GitHub */
+    .github-link img {
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: brightness(0.7);
+    }
+    .github-link:hover img {
+        transform: scale(1.2);
+        filter: brightness(1.5);
+    }
+</style>
+
+
+    <!-- Botón flotante para cambiar de tema -->
+    <button class="floating-btn " onclick="toggleTheme()">🌙</button>
+
+    <!--? Aquí irían las partículas -->
+    <script src = "./js/particles.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
